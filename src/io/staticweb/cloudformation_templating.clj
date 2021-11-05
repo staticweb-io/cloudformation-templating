@@ -21,11 +21,17 @@
 (defn base64 [x]
   {"Fn::Base64" x})
 
+(defn cidr [ip-block count cidr-bits]
+  {"Fn::Cidr" [ip-block count cidr-bits]})
+
 (defn equals [x y]
   {"Fn::Equals" [x y]})
 
 (defn find-in-map [map-name top-level-key second-level-key]
   {"Fn::FindInMap" [map-name top-level-key second-level-key]})
+
+(defn fn-and [& conds]
+  {"Fn::And" (vec conds)})
 
 (defn fn-if [cond then else]
   {"Fn::If" [(full-name cond) then else]})
@@ -33,8 +39,14 @@
 (defn fn-not [cond]
   {"Fn::Not" [cond]})
 
+(defn fn-or [& conds]
+  {"Fn::Or" (vec conds)})
+
 (defn get-att [ref attr]
   {"Fn::GetAtt" [(full-name ref) attr]})
+
+(defn get-azs [& [region]]
+  {"Fn::GetAZs" (or region "")})
 
 (defn import-value [name]
   {"Fn::ImportValue" (full-name name)})
@@ -83,6 +95,9 @@
 (def region
   {:Ref "AWS::Region"})
 
+(defn select [index objects]
+  {"Fn::Select" [index objects]})
+
 (defn split [separator s]
   {"Fn::Split" [separator s]})
 
@@ -105,6 +120,9 @@
   (apply sorted-map
     :AWSTemplateFormatVersion "2010-09-09"
     body))
+
+(defn transform [name parameters]
+  {"Fn::Transform" {:Name name :Parameters parameters}})
 
 (defn user-data [& data]
   (base64 (join "" data)))
