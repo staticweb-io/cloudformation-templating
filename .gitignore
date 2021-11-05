@@ -1,4 +1,5 @@
-/.cpcache
-/target
+.cpcache/
+.direnv/
+target/
 .nrepl-port
 pom.xml
