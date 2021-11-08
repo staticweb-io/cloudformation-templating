@@ -75,7 +75,7 @@
   (fn-not (equals x y)))
 
 (defn outputs
-  "Convert an output map from the format {LogicalId [Name Value Description]} 
+  "Converts an output map from the format {LogicalId [Name Value Description]}
   to AWS's output format. Description is optional."
   [m]
   (into {}
@@ -88,6 +88,25 @@
         [k (sorted-map
              :Value value
              :Export {:Name name})]))))
+
+(defn prefixed-outputs
+  "Converts a map from the format {LogicalId [Value Description]} to AWS's
+  output format. Output names are prefixed with the given prefix.
+
+  Example:
+  (prefixed-outputs
+    \"${AWS::StackName}-\"
+    {:VpcId [(ref :Vpc)]})
+  ;= {:VpcId {:Export {:Name {\"Fn::Sub\" \"${AWS::StackName}-VpcId\"}}
+                       :Value {\"Ref\" \"Vpc\"}}}"
+  [prefix m]
+  (outputs
+    (reduce
+      (fn [m [k [value description]]]
+        (assoc m k
+          [{"Fn::Sub" (str prefix (full-name k))} value description]))
+      m
+      m)))
 
 (defn ref [name]
   {"Ref" (full-name name)})
