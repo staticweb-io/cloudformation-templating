@@ -162,3 +162,9 @@
   (let [t (make-maps-sorted template)]
     (spit fn
       (json/generate-string t {:pretty true}))))
+
+(def ^{:doc "This is always the hosted zone ID when you create an alias record (in Route 53) that routes traffic to a CloudFront distribution.
+
+See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-aliastarget.html"}
+  cloudfront-hosted-zone-id
+  "Z2FDTNDATAQYW2")
