@@ -1,5 +1,7 @@
+.clj-kondo/
 .cpcache/
 .direnv/
+.lsp/
 target/
 .nrepl-port
 pom.xml
