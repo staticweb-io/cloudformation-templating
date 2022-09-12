@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <name>cloudformation-templating</name>
+  <description>A library for creating CloudFormation templates.</description>
+  <url>https://github.com/staticweb-io/cloudformation-templating</url>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://github.com/staticweb-io/cloudformation-templating/master/LICENSE</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>John Shaffer</name>
+    </developer>
+  </developers>
+  <scm>
+    <url>https://github.com/staticweb-io/cloudformation-templating</url>
+    <connection>scm:git:git://github.com/staticweb-io/cloudformation-templating.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/staticweb-io/cloudformation-templating.git</developerConnection>
+  </scm>
+</project>
