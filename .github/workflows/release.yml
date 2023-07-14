@@ -21,34 +21,15 @@ jobs:
             ~/.m2/repository
 
       - name: Install Nix
-        uses: cachix/install-nix-action@v17
+        uses: DeterminateSystems/nix-installer-action@v4
 
-      - name: Cache Nix store
-        id: nix-cache
-        uses: john-shaffer/cache@sudo-tar
-        with:
-          key: nix-cloudformation-templating-${{ hashFiles('**.nix') }}
-          restore-keys: |
-            nix-cloudformation-templating-
-          path: |
-            ~/nix-db-dump
-            /nix/store
-            /nix/var/nix/profiles
-
-      - run: sudo `command -v nix-store` --load-db < ~/nix-db-dump
-        if: steps.nix-cache.outputs.cache-hit == 'true'
-
-      - run: nix-build shell.nix -A inputDerivation -o gcroots
+      - name: Cache Nix Store
+        uses: DeterminateSystems/magic-nix-cache-action@v2
 
       - name: Deploy release jar
         run: |
-          nix-shell --run "clojure -T:build jar :snapshot false"
-          nix-shell --run "clojure -T:build deploy :snapshot false"
+          nix develop -c clojure -T:build jar :snapshot false
+          nix develop -c clojure -T:build deploy :snapshot false
         env:
           CLOJARS_PASSWORD: ${{secrets.CLOJARS_PASSWORD}}
           CLOJARS_USERNAME: ${{secrets.CLOJARS_USERNAME}}
-
-      - run: |
-          sudo `command -v nix-collect-garbage` -d
-          nix-store --dump-db > ~/nix-db-dump
-        if: steps.nix-cache.outputs.cache-hit != 'true'
