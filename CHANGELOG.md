@@ -1,5 +1,7 @@
 ## Unreleased
 
+## v2.0.0 (2023-07-14)
+
 - (breaking) Remove `import-from-json`, but add it to the README.
 - (breaking) Remove `write-template`.
 - Remove dependency on cheshire.
