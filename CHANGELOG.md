@@ -1,7 +1,11 @@
 ## Unreleased
-* Update to clojure 1.11.0-alpha2 and cheshire 5.10.1
+
+## 1.1.0 (2022-09-12)
+
+* Update to clojure 1.11.1 and cheshire 5.10.1
 * Add [Nix](https://nixos.org/) and [direnv](https://direnv.net/) files for development environment
 * Add cidr, fn-and, fn-or, get-azs, select, and transform functions
+* Add prefixed-outputs and cloudfront-hosted-zone-id
 
 ## 0.1.0 (2021-05-09)
 
