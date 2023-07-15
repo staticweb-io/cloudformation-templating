@@ -9,10 +9,11 @@ A library for creating CloudFormation templates.
 JSON templates can be converted to EDN (or Clojure) using this function:
 
 ```clojure
-(require '[cheshire.core :as json])
-(require '[com.rpl.specter :as sp])
+(require '[cheshire.core :as json]
+         '[com.rpl.specter :as sp]
+         '[io.staticweb.cloudformation-templating :as ct])
 
 (defn import-from-json [^String s]
   (let [m (json/parse-string s true)]
-    (sp/transform (sp/walker invalid-keyword?) full-name m)))
+    (sp/transform (sp/walker ct/invalid-keyword?) ct/full-name m)))
 ```
