@@ -1,6 +1,5 @@
 (ns io.staticweb.cloudformation-templating
-  (:require [cheshire.core :as json]
-            [clojure.string :as str]
+  (:require [clojure.string :as str]
             [com.rpl.specter :as sp])
   (:refer-clojure :exclude [ref]))
 
@@ -61,10 +60,6 @@
         (and ns
           (or (str/ends-with? ns ":")
             (str/index-of ns "::")))))))
-
-(defn import-from-json [s]
-  (let [m (cheshire.core/parse-string s true)]
-    (sp/transform (sp/walker invalid-keyword?) full-name m)))
 
 (defn join [separator coll]
   {"Fn::Join" [separator coll]})
@@ -157,11 +152,6 @@
   (sp/transform (sp/walker unsorted-map?)
     #(make-maps-sorted (into (sorted-map) %))
     x))
-
-(defn write-template [fn template]
-  (let [t (make-maps-sorted template)]
-    (spit fn
-      (json/generate-string t {:pretty true}))))
 
 (def ^{:doc "This is always the hosted zone ID when you create an alias record (in Route 53) that routes traffic to a CloudFront distribution.
 

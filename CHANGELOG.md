@@ -1,5 +1,9 @@
 ## Unreleased
 
+- (breaking) Remove `import-from-json`, but add it to the README.
+- (breaking) Remove `write-template`.
+- Remove dependency on cheshire.
+
 ## 1.1.0 (2022-09-12)
 
 * Update to clojure 1.11.1 and cheshire 5.10.1
