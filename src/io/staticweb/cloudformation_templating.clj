@@ -27,7 +27,9 @@
   {"Fn::Equals" [x y]})
 
 (defn find-in-map [map-name top-level-key second-level-key]
-  {"Fn::FindInMap" [map-name top-level-key second-level-key]})
+  {"Fn::FindInMap" [(full-name map-name)
+                    (if (integer? top-level-key) top-level-key (full-name top-level-key))
+                    (if (integer? second-level-key) second-level-key (full-name second-level-key))]})
 
 (defn fn-and [& conds]
   {"Fn::And" (vec conds)})
@@ -42,10 +44,10 @@
   {"Fn::Or" (vec conds)})
 
 (defn get-att [ref attr]
-  {"Fn::GetAtt" [(full-name ref) attr]})
+  {"Fn::GetAtt" [(full-name ref) (full-name attr)]})
 
 (defn get-azs [& [region]]
-  {"Fn::GetAZs" (or region "")})
+  {"Fn::GetAZs" (or (full-name region) "")})
 
 (defn import-value [name]
   {"Fn::ImportValue" (full-name name)})

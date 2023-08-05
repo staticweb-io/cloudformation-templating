@@ -1,5 +1,8 @@
 ## Unreleased
 
+- Update find-in-map, get-att, and get-azs to turn
+  keywords and symbols into strings.
+
 ## v2.0.0 (2023-07-14)
 
 - (breaking) Remove `import-from-json`, but add it to the README.
