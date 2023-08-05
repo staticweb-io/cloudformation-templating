@@ -1,5 +1,7 @@
 ## Unreleased
 
+## v2.1.0 (2023-08-05)
+
 - Update find-in-map, get-att, and get-azs to turn
   keywords and symbols into strings.
 
