@@ -208,6 +208,17 @@
   [x y]
   (fn-not (equals x y)))
 
+(def
+  ^{:doc
+    "Returns the list of notification Amazon Resource Names (ARNs)
+     for the current stack.
+     
+     To get a single ARN from the list, use [[select]].
+     
+     See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html#cfn-pseudo-param-notificationarns"}
+  notification-arns
+  {"Ref" "AWS::NotificationARNs"})
+
 (defn outputs
   "Converts an output map from the format {LogicalId [Name Value Description]}
   to AWS's output format. Description is optional."
@@ -222,6 +233,19 @@
         [k (sorted-map
              :Value value
              :Export {:Name name})]))))
+
+(def
+  ^{:doc
+    "Returns the partition that the resource is in. For standard
+     AWS Regions, the partition is aws. For resources in other
+     partitions, the partition is aws-partitionname. For example,
+     the partition for resources in the China (Beijing and Ningxia)
+     Region is `aws-cn` and the partition for resources in the
+     AWS GovCloud (US-West) region is `aws-us-gov`.
+     
+     See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html#cfn-pseudo-param-partition"}
+  partition
+  {"Ref" "AWS::Partition"})
 
 (defn prefixed-outputs
   "Converts a map from the format {LogicalId [Value Description]} to AWS's
@@ -333,6 +357,16 @@
    See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-transform.html"
   [name parameters]
   {"Fn::Transform" {:Name name :Parameters parameters}})
+
+(def
+  ^{:doc
+    "Returns the suffix for a domain. The suffix is typically
+     `amazonaws.com`, but might differ by Region. For example,
+     the suffix for the China (Beijing) Region is `amazonaws.com.cn`.
+     
+     See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html#cfn-pseudo-param-urlsuffix"}
+  url-suffix
+  {"Ref" "AWS::URLSuffix"})
 
 (defn user-data [& data]
   (base64 (join "" data)))
