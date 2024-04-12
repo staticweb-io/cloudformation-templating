@@ -11,7 +11,13 @@
         (name x)
         (str (namespace x) "/" (name x))))))
 
-(def account-id
+(def
+  ^{:doc
+    "Returns the AWS account ID of the account in which the stack
+     is being created.
+     
+     See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html#cfn-pseudo-param-accountid"}
+  account-id
   {:Ref "AWS::AccountId"})
 
 (defn arn [ref]

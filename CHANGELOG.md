@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Add docstring for `account-id`.
+
 ## v2.2.0 (2024-04-11)
 
 - Update to clojure 1.11.2.
