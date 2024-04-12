@@ -14,8 +14,8 @@ jobs:
       - name: Cache Clojure dependencies
         uses: actions/cache@v4
         with:
-          key: clj-cloudformation-templating-${{ hashFiles('**/deps.edn') }}
-          restore-keys: clj-cloudformation-templating-
+          key: clj-${{ github.repository }}-${{ hashFiles('**/deps.edn') }}
+          restore-keys: clj-${{ github.repository }}-
           path: |
             ~/.gitlibs
             ~/.m2/repository
