@@ -1,5 +1,7 @@
 ## Unreleased
 
+## v2.2.0 (2024-04-11)
+
 - Update to clojure 1.11.2.
 - Add [AWS::LanguageExtensions](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-aws-languageextensions.html) functions: `for-each`, `length`, and `to-json-string`. Add optional default-value positional arg to `find-in-map`.
 - Add docstrings for many more functions and vars.
