@@ -26,6 +26,12 @@ jobs:
       - name: Cache Nix Store
         uses: DeterminateSystems/magic-nix-cache-action@v4
 
+      - name: Build devShell
+        run: nix build .#devShells.x86_64-linux.default
+
+      - name: Run tests
+        run: nix develop -c bin/kaocha
+
       - name: Deploy release jar
         run: |
           nix develop -c clojure -T:build jar :snapshot false
