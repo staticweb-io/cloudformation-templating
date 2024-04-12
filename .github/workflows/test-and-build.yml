@@ -1,0 +1,33 @@
+name: Test & Build
+
+on: [push]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v10
+
+      - name: Use the Magic Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@v4
+
+      - name: Cache Clojure dependencies
+        uses: actions/cache@v4
+        with:
+          key: clj-${{ github.repository }}-${{ hashFiles('**/deps.edn') }}
+          restore-keys: clj-${{ github.repository }}-
+          path: |
+            ~/.gitlibs
+            ~/.m2/repository
+
+      - name: Build devShell
+        run: nix build .#devShells.x86_64-linux.default
+
+      - name: Run tests
+        run: nix develop -c bin/kaocha
+
+      - name: Build jar
+        run: nix develop -c clojure -T:build jar :snapshot true
