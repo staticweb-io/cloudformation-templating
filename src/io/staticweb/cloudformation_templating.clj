@@ -26,10 +26,15 @@
 (defn equals [x y]
   {"Fn::Equals" [x y]})
 
-(defn find-in-map [map-name top-level-key second-level-key]
-  {"Fn::FindInMap" [(full-name map-name)
-                    (if (integer? top-level-key) top-level-key (full-name top-level-key))
-                    (if (integer? second-level-key) second-level-key (full-name second-level-key))]})
+(defn find-in-map
+  ([map-name top-level-key second-level-key]
+   {"Fn::FindInMap"
+    [(full-name map-name)
+     (if (integer? top-level-key) top-level-key (full-name top-level-key))
+     (if (integer? second-level-key) second-level-key (full-name second-level-key))]})
+  ([map-name top-level-key second-level-key default-value]
+   (-> (find-in-map map-name top-level-key second-level-key)
+       (update "Fn::FindInMap" conj {"DefaultValue" default-value}))))
 
 (defn fn-and [& conds]
   {"Fn::And" (vec conds)})
@@ -42,6 +47,35 @@
 
 (defn fn-or [& conds]
   {"Fn::Or" (vec conds)})
+
+(defn for-each
+  "The Fn::ForEach intrinsic function takes a collection and a fragment,
+   and applies the items in the collection to the identifier
+   in the provided fragment.
+
+   Requires the AWS::LanguageExtensions transform.
+
+   `loop-name` must be globally unique within the template.
+   
+   See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-foreach.html
+   
+   Example:
+
+   ```
+   (ct/for-each
+     :Topics
+     :TopicName
+     (ct/ref :pRepoARNs)
+     \"SnsTopic${TopicName}\"
+     {\"Type\" \"AWS::SNS::Topic\"
+         \"Properties\"
+         {\"TopicName\"
+         (ct/join \".\" [(ct/ref :TopicName) \"fifo\"])
+         \"FifoTopic\" true}})
+   ```"
+  [loop-name id coll output-key output-val]
+  {(str "Fn::ForEach::" (full-name loop-name))
+   [(full-name id) coll {(full-name output-key) output-val}]})
 
 (defn get-att [ref attr]
   {"Fn::GetAtt" [(full-name ref) (full-name attr)]})
@@ -65,6 +99,16 @@
 
 (defn join [separator coll]
   {"Fn::Join" [separator coll]})
+
+(defn length
+  "The intrinsic function Fn::Length returns the number of elements
+   within an array or an intrinsic function that returns an array.
+
+   Requires the AWS::LanguageExtensions transform.
+   
+   See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-length.html"
+  [array]
+  {"Fn::Length" array})
 
 (def no-value {"Ref" "AWS::NoValue"})
 
@@ -136,6 +180,16 @@
   (apply sorted-map
     :AWSTemplateFormatVersion "2010-09-09"
     body))
+
+(defn to-json-string
+  "The Fn::ToJsonString intrinsic function converts an object or array
+   to its corresponding JSON string.
+
+   Requires the AWS::LanguageExtensions transform.
+   
+   See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-ToJsonString.html"
+  [object-or-array]
+  {"Fn::ToJsonString" object-or-array})
 
 (defn transform [name parameters]
   {"Fn::Transform" {:Name name :Parameters parameters}})
