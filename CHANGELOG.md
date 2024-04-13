@@ -1,5 +1,7 @@
 ## Unreleased
 
+## v2.3.0 (2024-04-12)
+
 - Add docstring for `account-id`.
 - Add the `notification-arns`, `partition`, and `url-suffix` psuedo parameters. See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html
 
