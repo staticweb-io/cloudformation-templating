@@ -1,5 +1,5 @@
 {:deps
- {org.clojure/clojure {:mvn/version "1.11.2"}
+ {org.clojure/clojure {:mvn/version "1.11.4"}
   com.rpl/specter {:mvn/version "1.1.4"}}
  :aliases
  {:build
@@ -9,5 +9,5 @@
    :ns-default build}
   :test
   {:extra-deps
-   {lambdaisland/kaocha {:mvn/version "1.88.1376"}}
+   {lambdaisland/kaocha {:mvn/version "1.91.1392"}}
    :extra-paths ["test"]}}}

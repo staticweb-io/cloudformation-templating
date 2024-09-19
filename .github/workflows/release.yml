@@ -21,10 +21,10 @@ jobs:
             ~/.m2/repository
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v10
+        uses: DeterminateSystems/nix-installer-action@v14
 
       - name: Cache Nix Store
-        uses: DeterminateSystems/magic-nix-cache-action@v4
+        uses: DeterminateSystems/magic-nix-cache-action@v8
 
       - name: Build devShell
         run: nix build .#devShells.x86_64-linux.default
