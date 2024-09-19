@@ -5,11 +5,14 @@
 (deftest test-find-in-map
   (testing "find-in-map emits the correct syntax")
   (is (= {"Fn::FindInMap" ["MyMap" "A" "B"]}
-       (ct/find-in-map :MyMap :A :B)) 
+       (ct/find-in-map :MyMap :A :B))
       "without default value")
   (is (= {"Fn::FindInMap" ["MyMap" "A" "B" {"DefaultValue" 0}]}
          (ct/find-in-map :MyMap :A :B 0))
-      "with default value"))
+      "with default value")
+  (is (= {"Fn::FindInMap" ["MyMap" {"Ref" "AWS::Region"} "B" {"DefaultValue" 0}]}
+         (ct/find-in-map :MyMap {"Ref" "AWS::Region"} :B 0))
+      "with a ref map"))
 
 ; From https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-foreach-example-resource.html
 (def for-each-topics-example

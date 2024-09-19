@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix a number of cases where a valid map such as `{"Ref":,,,}` passed to a function resulted in an error. These functions could only accept strings, keywords, and symbols. This has been fixed so that they now accept any valid form.
+
 ## v2.3.0 (2024-04-12)
 
 - Add docstring for `account-id`.
