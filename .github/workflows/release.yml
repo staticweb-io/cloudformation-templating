@@ -21,7 +21,7 @@ jobs:
             ~/.m2/repository
 
       - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@v14
+        uses: DeterminateSystems/nix-installer-action@v16
 
       - name: Build devShell
         run: nix build .#devShells.x86_64-linux.default
