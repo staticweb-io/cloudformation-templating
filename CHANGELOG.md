@@ -4,6 +4,8 @@
 - (breaking) Remove map sorting fns and specter dependency.
 - (breaking) Change :Ref to "Ref" in the return values of several
   functions.
+- (breaking) Change various keyword keys to strings in the return values
+  of the outputs, template, tags, and transform functions.
   - Templates have a lot of keys that aren't valid keywords,
     like "Fn::If". We previously used a mix of keywords and strings.
     Now all keys are strings all the time, so users that may be

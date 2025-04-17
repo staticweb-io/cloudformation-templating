@@ -227,12 +227,12 @@
     (for [[k [name value & [desc]]] m]
       (if (seq desc)
         [k (sorted-map
-             :Description desc
-             :Value value
-             :Export {:Name name})]
+             "Description" desc
+             "Value" value
+             "Export" {"Name" name})]
         [k (sorted-map
-             :Value value
-             :Export {:Name name})]))))
+             "Value" value
+             "Export" {"Name" name})]))))
 
 (def
   ^{:doc
@@ -331,22 +331,22 @@
 
 (defn tags
   "Converts a map from the format {k v ...}
-   to AWS's tags format [{:Key k :Value v ...}].
+   to AWS's tags format [{\"Key\" k \"Value\" v ...}].
 
    Keys may be keywords or strings."
   [& {:as m}]
   (mapv
     (fn [[k v]]
-      {:Key (full-name-if-ident k) :Value v})
+      {"Key" (full-name-if-ident k) "Value" v})
     m))
 
 (defn template
   "Returns a [[sorted-map]] of the body with
-   :AWSTemplateFormatVersion added."
+   \"AWSTemplateFormatVersion\" added."
   [& body]
   (apply sorted-map
-    :AWSTemplateFormatVersion "2010-09-09"
-    body))
+         "AWSTemplateFormatVersion" "2010-09-09"
+         body))
 
 (defn to-json-string
   "The Fn::ToJsonString intrinsic function converts an object or array
@@ -364,7 +364,7 @@
 
    See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-transform.html"
   [name parameters]
-  {"Fn::Transform" {:Name name :Parameters parameters}})
+  {"Fn::Transform" {"Name" name "Parameters" parameters}})
 
 (def
   ^{:doc
