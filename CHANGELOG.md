@@ -1,5 +1,7 @@
 ## Unreleased
 
+- (breaking) Remove invalid-keyword? function.
+
 ## v2.3.1 (2024-09-19)
 
 - Fix a number of cases where a valid map such as `{"Ref":,,,}` passed to a function resulted in an error. These functions could only accept strings, keywords, and symbols. This has been fixed so that they now accept any valid form.

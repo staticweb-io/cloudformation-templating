@@ -1,6 +1,5 @@
 (ns io.staticweb.cloudformation-templating
-  (:require [clojure.string :as str]
-            [com.rpl.specter :as sp])
+  (:require [com.rpl.specter :as sp])
   (:refer-clojure :exclude [ref]))
 
 (defn full-name
@@ -175,17 +174,6 @@
    See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html"
   [name]
   {"Fn::ImportValue" (full-name-if-ident name)})
-
-; Logic inferred from
-; https://github.com/clojure/clojure/blob/cbb3fdf787a00d3c1443794b97ed7fe4bef8e888/src/jvm/clojure/lang/EdnReader.java#L289
-(defn invalid-keyword? [x]
-  (and (keyword? x)
-    (let [ns (namespace x)
-          nm (name x)]
-      (or (str/index-of nm "::")
-        (and ns
-          (or (str/ends-with? ns ":")
-            (str/index-of ns "::")))))))
 
 (defn join
   "The intrinsic function Fn::Join appends a set of values into
