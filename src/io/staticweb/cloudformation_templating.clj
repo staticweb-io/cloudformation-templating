@@ -51,7 +51,13 @@
   [& conds]
   (apply and conds))
 
-(defn arn [ref]
+(defn arn
+  "Returns a template function map to get the ARN of a resource.
+
+   Only works for resources that support \"Fn::GetAtt\" to get the ARN.
+   Some resources require \"Ref\" to get the ARN, so you
+   should use [[ref]] instead for those."
+  [ref]
   {"Fn::GetAtt" [(full-name ref) "Arn"]})
 
 (defn base64

@@ -15,7 +15,7 @@
 - (breaking) Add new and, not, and or functions. Deprecate fn-and, fn-not,
   and fn-or.
 - Fix warning about the partition fn shadowing clojure.core/partition.
-- Add docstrings for deftemplate, tags, template, and user-data.
+- Add docstrings for arn, deftemplate, tags, template, and user-data.
 - Fix that template fn could not accept a mixture of keyword and
   string keys.
 
