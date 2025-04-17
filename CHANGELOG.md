@@ -2,6 +2,14 @@
 
 - (breaking) Remove invalid-keyword? function.
 - (breaking) Remove map sorting fns and specter dependency.
+- (breaking) Change :Ref to "Ref" in the return values of several
+  functions.
+  - Templates have a lot of keys that aren't valid keywords,
+    like "Fn::If". We previously used a mix of keywords and strings.
+    Now all keys are strings all the time, so users that may be
+    modifying the results don't have to look up which is which.
+    Users may still use any combination of keywords and strings in their
+    own code just as before.
 
 ## v2.3.1 (2024-09-19)
 

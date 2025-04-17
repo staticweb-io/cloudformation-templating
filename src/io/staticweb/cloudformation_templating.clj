@@ -27,7 +27,7 @@
 
      See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html#cfn-pseudo-param-accountid"}
   account-id
-  {:Ref "AWS::AccountId"})
+  {"Ref" "AWS::AccountId"})
 
 (defn arn [ref]
   {"Fn::GetAtt" [(full-name ref) "Arn"]})
@@ -281,7 +281,7 @@
 
      See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html#cfn-pseudo-param-region"}
   region
-  {:Ref "AWS::Region"})
+  {"Ref" "AWS::Region"})
 
 (defn select
   "The intrinsic function Fn::Select returns a single object from a
@@ -309,7 +309,7 @@
 
      See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html#cfn-pseudo-param-stackid"}
   stack-id
-  {:Ref "AWS::StackId"})
+  {"Ref" "AWS::StackId"})
 
 (def
   ^{:doc
@@ -318,7 +318,7 @@
 
      See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html#cfn-pseudo-param-stackname"}
   stack-name
-  {:Ref "AWS::StackName"})
+  {"Ref" "AWS::StackName"})
 
 (defn sub
   "The intrinsic function Fn::Sub substitutes variables in an
