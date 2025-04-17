@@ -14,6 +14,8 @@
     own code just as before.
 - Fix warning about the partition fn shadowing clojure.core/partition.
 - Add docstrings for deftemplate, tags, template, and user-data.
+- Fix that template fn could not accept a mixture of keyword and
+  string keys.
 
 ## v2.3.1 (2024-09-19)
 

@@ -344,7 +344,9 @@
   "Returns a [[sorted-map]] of the body with
    \"AWSTemplateFormatVersion\" added."
   [& body]
-  (apply sorted-map
+  (apply sorted-map-by
+         (fn [a b]
+           (compare (full-name a) (full-name b)))
          "AWSTemplateFormatVersion" "2010-09-09"
          body))
 

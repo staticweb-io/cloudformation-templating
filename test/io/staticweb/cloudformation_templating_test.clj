@@ -56,3 +56,12 @@
                (ct/join "." [(ct/ref :TopicName) "fifo"])
                "FifoTopic" true}}))
         "with string identifiers")))
+
+(deftest test-template
+  (testing "template works with both keyword and string keys"
+    (is (= {"AWSTemplateFormatVersion" "2010-09-09"
+            "Resources" {}}
+           (ct/template "Resources" {})))
+    (is (= {"AWSTemplateFormatVersion" "2010-09-09"
+            :Resources {}}
+          (ct/template :Resources {})))))
