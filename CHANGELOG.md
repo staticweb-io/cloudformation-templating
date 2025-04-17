@@ -1,6 +1,7 @@
 ## Unreleased
 
 - (breaking) Remove invalid-keyword? function.
+- (breaking) Remove map sorting fns and specter dependency.
 
 ## v2.3.1 (2024-09-19)
 

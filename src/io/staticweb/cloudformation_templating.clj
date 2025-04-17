@@ -1,5 +1,4 @@
 (ns io.staticweb.cloudformation-templating
-  (:require [com.rpl.specter :as sp])
   (:refer-clojure :exclude [ref]))
 
 (defn full-name
@@ -374,14 +373,6 @@
 (defmacro deftemplate [name-sym & body]
   `(def ~name-sym
      (template ~@body)))
-
-(defn unsorted-map? [x]
-  (and (map? x) (not (sorted? x))))
-
-(defn make-maps-sorted [x]
-  (sp/transform (sp/walker unsorted-map?)
-    #(make-maps-sorted (into (sorted-map) %))
-    x))
 
 (def ^{:doc "This is always the hosted zone ID when you create an alias record (in Route 53) that routes traffic to a CloudFront distribution.
 
