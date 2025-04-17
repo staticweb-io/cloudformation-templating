@@ -11,6 +11,7 @@
     Users may still use any combination of keywords and strings in their
     own code just as before.
 - Fix warning about the partition fn shadowing clojure.core/partition.
+- Add docstrings for deftemplate, tags, template, and user-data.
 
 ## v2.3.1 (2024-09-19)
 

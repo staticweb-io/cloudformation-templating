@@ -329,13 +329,21 @@
   [s]
   {"Fn::Sub" s})
 
-(defn tags [& {:as m}]
+(defn tags
+  "Converts a map from the format {k v ...}
+   to AWS's tags format [{:Key k :Value v ...}].
+
+   Keys may be keywords or strings."
+  [& {:as m}]
   (mapv
     (fn [[k v]]
       {:Key (full-name-if-ident k) :Value v})
     m))
 
-(defn template [& body]
+(defn template
+  "Returns a [[sorted-map]] of the body with
+   :AWSTemplateFormatVersion added."
+  [& body]
   (apply sorted-map
     :AWSTemplateFormatVersion "2010-09-09"
     body))
@@ -368,10 +376,19 @@
   url-suffix
   {"Ref" "AWS::URLSuffix"})
 
-(defn user-data [& data]
+(defn user-data
+  "Returns a template function map that concatenates the data strings
+   and base64-encodes the result.
+
+   Equivalent to {\"Fn::Base64\" {\"Fn::Join\" [\"\", data]}}."
+  [& data]
   (base64 (join "" data)))
 
-(defmacro deftemplate [name-sym & body]
+(defmacro deftemplate
+  "Defines a template var.
+
+   Equivalent to (def name-sym (template body))."
+  [name-sym & body]
   `(def ~name-sym
      (template ~@body)))
 
