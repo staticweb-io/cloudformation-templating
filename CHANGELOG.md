@@ -10,6 +10,7 @@
     modifying the results don't have to look up which is which.
     Users may still use any combination of keywords and strings in their
     own code just as before.
+- Fix warning about the partition fn shadowing clojure.core/partition.
 
 ## v2.3.1 (2024-09-19)
 

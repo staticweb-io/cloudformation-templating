@@ -1,5 +1,5 @@
 (ns io.staticweb.cloudformation-templating
-  (:refer-clojure :exclude [ref]))
+  (:refer-clojure :exclude [partition ref]))
 
 (defn full-name
   "For keywords and symbols, returns the namespace and name of
