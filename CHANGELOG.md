@@ -1,5 +1,7 @@
 ## Unreleased
 
+## v3.0.0 (2025-04-17)
+
 - (breaking) Remove invalid-keyword? function.
 - (breaking) Remove map sorting fns and specter dependency.
 - (breaking) Change :Ref to "Ref" in the return values of several

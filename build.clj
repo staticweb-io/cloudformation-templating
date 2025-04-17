@@ -2,7 +2,7 @@
   (:require [org.corfield.build :as bb]))
 
 (def lib 'io.staticweb/cloudformation-templating)
-(def version "2.3.1")
+(def version "3.0.0")
 
 (defn get-version [opts]
   (str version (when (:snapshot opts) "-SNAPSHOT")))
