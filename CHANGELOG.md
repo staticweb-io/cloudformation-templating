@@ -12,6 +12,8 @@
     modifying the results don't have to look up which is which.
     Users may still use any combination of keywords and strings in their
     own code just as before.
+- (breaking) Add new and, not, and or functions. Deprecate fn-and, fn-not,
+  and fn-or.
 - Fix warning about the partition fn shadowing clojure.core/partition.
 - Add docstrings for deftemplate, tags, template, and user-data.
 - Fix that template fn could not accept a mixture of keyword and

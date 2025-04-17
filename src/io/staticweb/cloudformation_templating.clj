@@ -1,5 +1,5 @@
 (ns io.staticweb.cloudformation-templating
-  (:refer-clojure :exclude [partition ref]))
+  (:refer-clojure :exclude [and not or partition ref]))
 
 (defn full-name
   "For keywords and symbols, returns the namespace and name of
@@ -28,6 +28,28 @@
      See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html#cfn-pseudo-param-accountid"}
   account-id
   {"Ref" "AWS::AccountId"})
+
+(defn and
+  "Returns true if all the specified conditions evaluate to true,
+   or returns false if any one of the conditions evaluates to false.
+   Fn::And acts as an AND operator. The minimum number of conditions
+   that you can include is 2, and the maximum is 10.
+
+   See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-and"
+  [& conds]
+  {"Fn::And" (vec conds)})
+
+(defn ^{:deprecated "3.0"} fn-and
+  "Deprecated: Use [[and]].
+   
+   Returns true if all the specified conditions evaluate to true,
+   or returns false if any one of the conditions evaluates to false.
+   Fn::And acts as an AND operator. The minimum number of conditions
+   that you can include is 2, and the maximum is 10.
+
+   See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-and"
+  [& conds]
+  (apply and conds))
 
 (defn arn [ref]
   {"Fn::GetAtt" [(full-name ref) "Arn"]})
@@ -75,16 +97,6 @@
    (-> (find-in-map map-name top-level-key second-level-key)
        (update "Fn::FindInMap" conj {"DefaultValue" default-value}))))
 
-(defn fn-and
-  "Returns true if all the specified conditions evaluate to true,
-   or returns false if any one of the conditions evaluates to false.
-   Fn::And acts as an AND operator. The minimum number of conditions
-   that you can include is 2, and the maximum is 10.
-
-   See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-and"
-  [& conds]
-  {"Fn::And" (vec conds)})
-
 (defn fn-if
   "Returns one value if the specified condition evaluates to true and
    another value if the specified condition evaluates to false.
@@ -98,25 +110,6 @@
   [cond then else]
   {"Fn::If"
    [(full-name-if-ident cond) then else]})
-
-(defn fn-not
-  "Returns true for a condition that evaluates to false or returns
-   false for a condition that evaluates to true. Fn::Not acts as a
-   NOT operator.
-
-   See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-not"
-  [cond]
-  {"Fn::Not" [cond]})
-
-(defn fn-or
-  "Returns true if any one of the specified conditions evaluate to true,
-   or returns false if all the conditions evaluates to false.
-   Fn::Or acts as an OR operator. The minimum number of conditions that
-   you can include is 2, and the maximum is 10.
-
-   See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-or"
-  [& conds]
-  {"Fn::Or" (vec conds)})
 
 (defn for-each
   "The Fn::ForEach intrinsic function takes a collection and a fragment,
@@ -163,7 +156,7 @@
 
    See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getavailabilityzones.html"
   [& [region]]
-  {"Fn::GetAZs" (or (full-name-if-ident region) "")})
+  {"Fn::GetAZs" (clojure.core/or (full-name-if-ident region) "")})
 
 (defn import-value
   "The intrinsic function Fn::ImportValue returns the value of an output
@@ -203,10 +196,30 @@
   no-value
   {"Ref" "AWS::NoValue"})
 
+(defn not
+  "Returns true for a condition that evaluates to false or returns
+   false for a condition that evaluates to true. Fn::Not acts as a
+   NOT operator.
+
+   See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-not"
+  [cond]
+  {"Fn::Not" [cond]})
+
+(defn ^{:deprecated "3.0"} fn-not
+  "Deprecated: Use [[not]].
+   
+   Returns true for a condition that evaluates to false or returns
+   false for a condition that evaluates to true. Fn::Not acts as a
+   NOT operator.
+
+   See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-not"
+  [cond]
+  (not cond))
+
 (defn not-equals
-  "The composition of [[fn-not]] and [[equals]]."
+  "The composition of [[not]] and [[equals]]."
   [x y]
-  (fn-not (equals x y)))
+  (not (equals x y)))
 
 (def
   ^{:doc
@@ -218,6 +231,28 @@
      See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html#cfn-pseudo-param-notificationarns"}
   notification-arns
   {"Ref" "AWS::NotificationARNs"})
+
+(defn or
+  "Returns true if any one of the specified conditions evaluate to true,
+   or returns false if all the conditions evaluates to false.
+   Fn::Or acts as an OR operator. The minimum number of conditions that
+   you can include is 2, and the maximum is 10.
+
+   See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-or"
+  [& conds]
+  {"Fn::Or" (vec conds)})
+
+(defn ^{:deprecated "3.0"} fn-or
+  "Deprecated: Use [[or]].
+   
+   Returns true if any one of the specified conditions evaluate to true,
+   or returns false if all the conditions evaluates to false.
+   Fn::Or acts as an OR operator. The minimum number of conditions that
+   you can include is 2, and the maximum is 10.
+
+   See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-conditions.html#intrinsic-function-reference-conditions-or"
+  [& conds]
+  (apply or conds))
 
 (defn outputs
   "Converts an output map from the format {LogicalId [Name Value Description]}
