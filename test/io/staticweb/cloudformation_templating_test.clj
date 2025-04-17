@@ -64,4 +64,9 @@
            (ct/template "Resources" {})))
     (is (= {"AWSTemplateFormatVersion" "2010-09-09"
             :Resources {}}
-          (ct/template :Resources {})))))
+          (ct/template :Resources {}))))
+  (testing "AWSTemplateFormatVersion can be overridden"
+    (is (= {"AWSTemplateFormatVersion" "2025-04-17"}
+           (ct/template "AWSTemplateFormatVersion" "2025-04-17")))
+    (is (= {:AWSTemplateFormatVersion "2025-04-17"}
+           (ct/template :AWSTemplateFormatVersion "2025-04-17")))))
