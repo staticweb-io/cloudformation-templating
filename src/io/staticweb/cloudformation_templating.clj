@@ -392,7 +392,7 @@
     m))
 
 (defn template
-  "Returns a [[sorted-map]] of the body with
+  "Returns a [[clojure.core/sorted-map]] of the body with
    \"AWSTemplateFormatVersion\" added."
   [& body]
   (apply sorted-map-by-full-name
