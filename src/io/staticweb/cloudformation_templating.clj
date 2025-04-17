@@ -200,7 +200,8 @@
      as a return value in the [[fn-if]] intrinsic function.
 
      See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html"}
-  no-value {"Ref" "AWS::NoValue"})
+  no-value
+  {"Ref" "AWS::NoValue"})
 
 (defn not-equals
   "The composition of [[fn-not]] and [[equals]]."
