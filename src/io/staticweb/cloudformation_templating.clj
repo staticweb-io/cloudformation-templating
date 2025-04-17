@@ -20,6 +20,16 @@
     (full-name x)
     x))
 
+(defn- compare-full-names
+  [a b]
+  (compare (full-name a) (full-name b)))
+
+(defn- sorted-map-by-full-name
+  [& keyvals]
+  (apply sorted-map-by
+    compare-full-names
+    keyvals))
+
 (def
   ^{:doc
     "Returns the AWS account ID of the account in which the stack
@@ -267,11 +277,11 @@
   (into {}
     (for [[k [name value & [desc]]] m]
       (if (seq desc)
-        [k (sorted-map
+        [k (sorted-map-by-full-name
              "Description" desc
              "Value" value
              "Export" {"Name" name})]
-        [k (sorted-map
+        [k (sorted-map-by-full-name
              "Value" value
              "Export" {"Name" name})]))))
 
@@ -385,9 +395,7 @@
   "Returns a [[sorted-map]] of the body with
    \"AWSTemplateFormatVersion\" added."
   [& body]
-  (apply sorted-map-by
-         (fn [a b]
-           (compare (full-name a) (full-name b)))
+  (apply sorted-map-by-full-name
          "AWSTemplateFormatVersion" "2010-09-09"
          body))
 
