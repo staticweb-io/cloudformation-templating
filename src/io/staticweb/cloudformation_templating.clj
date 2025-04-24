@@ -1,5 +1,10 @@
 (ns io.staticweb.cloudformation-templating
-  (:refer-clojure :exclude [and not or partition ref]))
+  (:refer-clojure :exclude [and not or partition ref])
+  (:require
+   [clojure.edn :as edn]
+   [clojure.java.io :as io])
+  (:import
+   (java.io PushbackReader)))
 
 (defn full-name
   "For keywords and symbols, returns the namespace and name of
@@ -51,7 +56,7 @@
 
 (defn ^{:deprecated "3.0"} fn-and
   "Deprecated: Use [[and]].
-   
+
    Returns true if all the specified conditions evaluate to true,
    or returns false if any one of the conditions evaluates to false.
    Fn::And acts as an AND operator. The minimum number of conditions
@@ -223,7 +228,7 @@
 
 (defn ^{:deprecated "3.0"} fn-not
   "Deprecated: Use [[not]].
-   
+
    Returns true for a condition that evaluates to false or returns
    false for a condition that evaluates to true. Fn::Not acts as a
    NOT operator.
@@ -260,7 +265,7 @@
 
 (defn ^{:deprecated "3.0"} fn-or
   "Deprecated: Use [[or]].
-   
+
    Returns true if any one of the specified conditions evaluate to true,
    or returns false if all the conditions evaluates to false.
    Fn::Or acts as an OR operator. The minimum number of conditions that
@@ -334,6 +339,32 @@
      See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/pseudo-parameter-reference.html#cfn-pseudo-param-region"}
   region
   {"Ref" "AWS::Region"})
+
+(def ^:private regions-delay
+  (delay
+    (with-open [rdr (-> "io/staticweb/cloudformation-templating/regions.edn"
+                        io/resource io/reader PushbackReader.)]
+      (edn/read rdr))))
+
+(defn regions
+  "Returns a map of region keywords to data about that region.
+
+   Keys are region keywords like `:us-east-2`.
+   Values look like this:
+   ```
+   {:code \"us-east-2\"
+    :domain \"amazonaws.com\"
+    :geolocation-country \"US\"
+    :geolocation-region \"US-OH\"
+    :long-name \"US East (Ohio)\"
+    :opt-in? false
+    :partition \"aws\"}
+   ```
+
+   Values may have more or less information depending on
+   what's available when the library is released."
+  []
+  @regions-delay)
 
 (defn select
   "The intrinsic function Fn::Select returns a single object from a

@@ -57,6 +57,28 @@
                "FifoTopic" true}}))
         "with string identifiers")))
 
+(deftest test-regions
+  (let [test-keys
+        #__ [:code :domain :geolocation-country :geolocation-region
+             :long-name :opt-in? :partition]]
+    (testing "regions contains basic data about each AWS region"
+      (is (= {:code "us-east-2"
+              :domain "amazonaws.com"
+              :geolocation-country "US"
+              :geolocation-region "US-OH"
+              :long-name "US East (Ohio)"
+              :opt-in? false
+              :partition "aws"}
+             (select-keys (:us-east-2 (ct/regions)) test-keys)))
+      (is (= {:code "ap-northeast-3"
+              :domain "amazonaws.com"
+              :geolocation-country "JP"
+              :geolocation-region "JP-27"
+              :long-name "Asia Pacific (Osaka)"
+              :opt-in? false
+              :partition "aws"}
+             (select-keys (:ap-northeast-3 (ct/regions)) test-keys))))))
+
 (deftest test-template
   (testing "template works with both keyword and string keys"
     (is (= {"AWSTemplateFormatVersion" "2010-09-09"
