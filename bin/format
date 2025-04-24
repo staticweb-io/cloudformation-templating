@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-npx --no @chrisoakman/standard-clojure-style fix src test ./*.edn
+npx --no @chrisoakman/standard-clojure-style fix resources src test ./*.edn
