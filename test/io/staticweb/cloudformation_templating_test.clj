@@ -3,6 +3,15 @@
    [clojure.test :refer [deftest is testing]]
    [io.staticweb.cloudformation-templating :as ct]))
 
+(deftest test-elb-data
+  (let [test-keys [:account-arn :account-id :service-principal]]
+    (testing "elbs contains account ID and ARN for older regions"
+      (is (= {:account-arn "arn:aws:iam::033677994240:root"}
+             (select-keys (:us-east-2 (ct/elb-data)) test-keys))))
+    (testing "elbs contains service principal for newer regions"
+      (is (= {:service-principal "logdelivery.elasticloadbalancing.amazonaws.com"}
+             (select-keys (:ap-southeast-4 (ct/elb-data)) test-keys))))))
+
 (deftest test-find-in-map
   (testing "find-in-map emits the correct syntax")
   (is (= {"Fn::FindInMap" ["MyMap" "A" "B"]}

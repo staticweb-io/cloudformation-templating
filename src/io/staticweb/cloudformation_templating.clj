@@ -6,6 +6,8 @@
   (:import
    (java.io PushbackReader)))
 
+(declare regions)
+
 (defn full-name
   "For keywords and symbols, returns the namespace and name of
    the ident. For strings, returns the string unchanged."
@@ -92,6 +94,56 @@
    See https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-cidr.html"
   [ip-block count cidr-bits]
   {"Fn::Cidr" [ip-block count cidr-bits]})
+
+(def ^:private elb-data-delay
+  (delay
+    (let [account-ids
+          #__ (with-open [rdr (-> "io/staticweb/cloudformation-templating/elb-account-ids.edn"
+                                  io/resource io/reader PushbackReader.)]
+                (edn/read rdr))]
+      (reduce
+        (fn [acc {:keys [code partition]}]
+          (let [k (keyword code)
+                account-id (get account-ids k)]
+            (assoc
+              acc
+              k
+              (if account-id
+                {:account-arn (str "arn:" partition ":iam::" account-id ":root")}
+                {:service-principal "logdelivery.elasticloadbalancing.amazonaws.com"}))))
+        {}
+        (vals (regions))))))
+
+(defn elb-data
+  "Returns a map of region keywords to ELB data for that region.
+
+   Keys are region keywords like `:us-east-2`.
+   Values look like this for regions available before August 2022:
+   `{:account-arn \"arn:aws:iam::033677994240:root\"}`
+   The ARN can be used to construct an IAM policy statement that
+   allows the ELB to save logs to an S3 bucket. The statement should
+   look something like this:
+   ```
+   {:Action \"s3:PutObject\"
+    :Effect \"Allow\"
+    :Principal {:AWS \"arn:aws:iam::033677994240:root\"}
+    :Resource ...)}
+   ```
+
+   :Resource should be in the format
+   \"arn:aws:s3:::${BucketName}/${Prefix}/AWSLogs/${AWS::AccountId}/*\".
+
+   For regions available as of August 2022 or later,
+   all values are the same:
+   `{:service-principal \"logdelivery.elasticloadbalancing.amazonaws.com\"}`
+   The IAM policy statement should look like the above example with one change.
+   Instead of `{:AWS ...}`, the `:Principal` should be
+   `{:Service \"logdelivery.elasticloadbalancing.amazonaws.com\"}`.
+
+   See https://docs.aws.amazon.com/elasticloadbalancing/latest/application/enable-access-logging.html
+   for more details."
+  []
+  @elb-data-delay)
 
 (defn equals
   "Compares if two values are equal.
