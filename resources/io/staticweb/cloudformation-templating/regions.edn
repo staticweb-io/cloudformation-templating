@@ -1,32 +1,256 @@
-{:af-south-1 {:code "af-south-1", :opt-in? true},
- :ap-east-1 {:code "ap-east-1", :opt-in? true},
- :ap-northeast-1 {:code "ap-northeast-1", :opt-in? false},
- :ap-northeast-2 {:code "ap-northeast-2", :opt-in? false},
- :ap-northeast-3 {:code "ap-northeast-3", :opt-in? false},
- :ap-south-1 {:code "ap-south-1", :opt-in? false},
- :ap-south-2 {:code "ap-south-2", :opt-in? true},
- :ap-southeast-1 {:code "ap-southeast-1", :opt-in? false},
- :ap-southeast-2 {:code "ap-southeast-2", :opt-in? false},
- :ap-southeast-3 {:code "ap-southeast-3", :opt-in? true},
- :ap-southeast-4 {:code "ap-southeast-4", :opt-in? true},
- :ap-southeast-5 {:code "ap-southeast-5", :opt-in? true},
- :ap-southeast-7 {:code "ap-southeast-7", :opt-in? true},
- :ca-central-1 {:code "ca-central-1", :opt-in? false},
- :ca-west-1 {:code "ca-west-1", :opt-in? true},
- :eu-central-1 {:code "eu-central-1", :opt-in? false},
- :eu-central-2 {:code "eu-central-2", :opt-in? true},
- :eu-north-1 {:code "eu-north-1", :opt-in? false},
- :eu-south-1 {:code "eu-south-1", :opt-in? true},
- :eu-south-2 {:code "eu-south-2", :opt-in? true},
- :eu-west-1 {:code "eu-west-1", :opt-in? false},
- :eu-west-2 {:code "eu-west-2", :opt-in? false},
- :eu-west-3 {:code "eu-west-3", :opt-in? false},
- :il-central-1 {:code "il-central-1", :opt-in? true},
- :me-central-1 {:code "me-central-1", :opt-in? true},
- :me-south-1 {:code "me-south-1", :opt-in? true},
- :mx-central-1 {:code "mx-central-1", :opt-in? true},
- :sa-east-1 {:code "sa-east-1", :opt-in? false},
- :us-east-1 {:code "us-east-1", :opt-in? false},
- :us-east-2 {:code "us-east-2", :opt-in? false},
- :us-west-1 {:code "us-west-1", :opt-in? false},
- :us-west-2 {:code "us-west-2", :opt-in? false}}
+{:af-south-1
+ {:code "af-south-1"
+  :domain "amazonaws.com"
+  :geolocation-country "ZA"
+  :geolocation-region "ZA-WC"
+  :long-name "Africa (Cape Town)"
+  :opt-in? true
+  :partition "aws"}
+ :ap-east-1
+ {:code "ap-east-1"
+  :domain "amazonaws.com"
+  :geolocation-country "CN"
+  :geolocation-region "CN-HK"
+  :long-name "Asia Pacific (Hong Kong)"
+  :opt-in? true
+  :partition "aws"}
+ :ap-northeast-1
+ {:code "ap-northeast-1"
+  :domain "amazonaws.com"
+  :geolocation-country "JP"
+  :geolocation-region "JP-13"
+  :long-name "Asia Pacific (Tokyo)"
+  :opt-in? false
+  :partition "aws"}
+ :ap-northeast-2
+ {:code "ap-northeast-2"
+  :domain "amazonaws.com"
+  :geolocation-country "KR"
+  :geolocation-region "KR-28"
+  :long-name "Asia Pacific (Seoul)"
+  :opt-in? false
+  :partition "aws"}
+ :ap-northeast-3
+ {:code "ap-northeast-3"
+  :domain "amazonaws.com"
+  :geolocation-country "JP"
+  :geolocation-region "JP-27"
+  :long-name "Asia Pacific (Osaka)"
+  :opt-in? false
+  :partition "aws"}
+ :ap-south-1
+ {:code "ap-south-1"
+  :domain "amazonaws.com"
+  :geolocation-country "IN"
+  :geolocation-region "IN-MH"
+  :long-name "Asia Pacific (Mumbai)"
+  :opt-in? false
+  :partition "aws"}
+ :ap-south-2
+ {:code "ap-south-2"
+  :domain "amazonaws.com"
+  :geolocation-country "IN"
+  :geolocation-region "IN-TG"
+  :long-name "Asia Pacific (Hyderabad)"
+  :opt-in? true
+  :partition "aws"}
+ :ap-southeast-1
+ {:code "ap-southeast-1"
+  :domain "amazonaws.com"
+  :geolocation-country "SG"
+  :geolocation-region "SG-01"
+  :long-name "Asia Pacific (Singapore)"
+  :opt-in? false
+  :partition "aws"}
+ :ap-southeast-2
+ {:code "ap-southeast-2"
+  :domain "amazonaws.com"
+  :geolocation-country "AU"
+  :geolocation-region "AU-NSW"
+  :long-name "Asia Pacific (Sydney)"
+  :opt-in? false
+  :partition "aws"}
+ :ap-southeast-3
+ {:code "ap-southeast-3"
+  :domain "amazonaws.com"
+  :geolocation-country "ID"
+  :geolocation-region "ID-JK"
+  :long-name "Asia Pacific (Jakarta)"
+  :opt-in? true
+  :partition "aws"}
+ :ap-southeast-4
+ {:code "ap-southeast-4"
+  :domain "amazonaws.com"
+  :geolocation-country "AU"
+  :geolocation-region "AU-VIC"
+  :long-name "Asia Pacific (Melbourne)"
+  :opt-in? true
+  :partition "aws"}
+ :ap-southeast-5
+ {:code "ap-southeast-5"
+  :domain "amazonaws.com"
+  :geolocation-country "MY"
+  :geolocation-region "MY-14"
+  :long-name "Asia Pacific (Malaysia)"
+  :opt-in? true
+  :partition "aws"}
+ :ap-southeast-7
+ {:code "ap-southeast-7"
+  :domain "amazonaws.com"
+  :geolocation-country "TH"
+  :geolocation-region "TH-10"
+  :long-name "Asia Pacific (Thailand)"
+  :opt-in? true
+  :partition "aws"}
+ :ca-central-1
+ {:code "ca-central-1"
+  :domain "amazonaws.com"
+  :geolocation-country "CA"
+  :geolocation-region "CA-QC"
+  :long-name "Canada (Central)"
+  :opt-in? false
+  :partition "aws"}
+ :ca-west-1
+ {:code "ca-west-1"
+  :domain "amazonaws.com"
+  :geolocation-country "CA"
+  :geolocation-region "CA-AB"
+  :long-name "Canada West (Calgary)"
+  :opt-in? true
+  :partition "aws"}
+ :eu-central-1
+ {:code "eu-central-1"
+  :domain "amazonaws.com"
+  :geolocation-country "DE"
+  :geolocation-region "DE-HE"
+  :long-name "Europe (Frankfurt)"
+  :opt-in? false
+  :partition "aws"}
+ :eu-central-2
+ {:code "eu-central-2"
+  :domain "amazonaws.com"
+  :geolocation-country "CH"
+  :geolocation-region "CH-ZH"
+  :long-name "Europe (Zurich)"
+  :opt-in? true
+  :partition "aws"}
+ :eu-north-1
+ {:code "eu-north-1"
+  :domain "amazonaws.com"
+  :geolocation-country "SE"
+  :geolocation-region "SE-AB"
+  :long-name "Europe (Stockholm)"
+  :opt-in? false
+  :partition "aws"}
+ :eu-south-1
+ {:code "eu-south-1"
+  :domain "amazonaws.com"
+  :geolocation-country "IT"
+  :geolocation-region "IT-MI"
+  :long-name "Europe (Milan)"
+  :opt-in? true
+  :partition "aws"}
+ :eu-south-2
+ {:code "eu-south-2"
+  :domain "amazonaws.com"
+  :geolocation-country "ES"
+  :geolocation-region "ES-AR"
+  :long-name "Europe (Spain)"
+  :opt-in? true
+  :partition "aws"}
+ :eu-west-1
+ {:code "eu-west-1"
+  :domain "amazonaws.com"
+  :geolocation-country "IE"
+  :geolocation-region "IE-D"
+  :long-name "Europe (Ireland)"
+  :opt-in? false
+  :partition "aws"}
+ :eu-west-2
+ {:code "eu-west-2"
+  :domain "amazonaws.com"
+  :geolocation-country "GB"
+  :geolocation-region "GB-LND"
+  :long-name "Europe (London)"
+  :opt-in? false
+  :partition "aws"}
+ :eu-west-3
+ {:code "eu-west-3"
+  :domain "amazonaws.com"
+  :geolocation-country "FR"
+  :geolocation-region "FR-75C"
+  :long-name "Europe (Paris)"
+  :opt-in? false
+  :partition "aws"}
+ :il-central-1
+ {:code "il-central-1"
+  :domain "amazonaws.com"
+  :geolocation-country "IL"
+  :geolocation-region "IL-TA"
+  :long-name "Israel (Tel Aviv)"
+  :opt-in? true
+  :partition "aws"}
+ :me-central-1
+ {:code "me-central-1"
+  :domain "amazonaws.com"
+  :geolocation-country "AE"
+  :geolocation-region "AE-DU"
+  :long-name "Middle East (UAE)"
+  :opt-in? true
+  :partition "aws"}
+ :me-south-1
+ {:code "me-south-1"
+  :domain "amazonaws.com"
+  :geolocation-country "BH"
+  :geolocation-region "BH-14"
+  :long-name "Middle East (Bahrain)"
+  :opt-in? true
+  :partition "aws"}
+ :mx-central-1
+ {:code "mx-central-1"
+  :domain "amazonaws.com"
+  :geolocation-country "MX"
+  :geolocation-region "MX-QUE"
+  :long-name "Mexico (Central)"
+  :opt-in? true
+  :partition "aws"}
+ :sa-east-1
+ {:code "sa-east-1"
+  :domain "amazonaws.com"
+  :geolocation-country "BR"
+  :geolocation-region "BR-SP"
+  :long-name "South America (Sao Paulo)"
+  :opt-in? false
+  :partition "aws"}
+ :us-east-1
+ {:code "us-east-1"
+  :domain "amazonaws.com"
+  :geolocation-country "US"
+  :geolocation-region "US-VA"
+  :long-name "US East (N. Virginia)"
+  :opt-in? false
+  :partition "aws"}
+ :us-east-2
+ {:code "us-east-2"
+  :domain "amazonaws.com"
+  :geolocation-country "US"
+  :geolocation-region "US-OH"
+  :long-name "US East (Ohio)"
+  :opt-in? false
+  :partition "aws"}
+ :us-west-1
+ {:code "us-west-1"
+  :domain "amazonaws.com"
+  :geolocation-country "US"
+  :geolocation-region "US-CA"
+  :long-name "US West (N. California)"
+  :opt-in? false
+  :partition "aws"}
+ :us-west-2
+ {:code "us-west-2"
+  :domain "amazonaws.com"
+  :geolocation-country "US"
+  :geolocation-region "US-OR"
+  :long-name "US West (Oregon)"
+  :opt-in? false
+  :partition "aws"}}

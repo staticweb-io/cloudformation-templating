@@ -1,8 +1,10 @@
 (ns build
   (:require
+   [camel-snake-kebab.core :as csk]
    [clojure.data.json :as json]
    [clojure.java.process :as p]
    [clojure.pprint :as pp]
+   [clojure.string :as str]
    [org.corfield.build :as bb]))
 
 (def lib 'io.staticweb/cloudformation-templating)
@@ -11,9 +13,29 @@
 (defn get-version [opts]
   (str version (when (:snapshot opts) "-SNAPSHOT")))
 
+(defn region-params [region]
+  (let [json (-> (p/exec
+                  {:err :inherit}
+                  "aws" "ssm" "get-parameters-by-path"
+                  "--path" (str "/aws/service/global-infrastructure/regions/" region)
+                  "--output" "json")
+                 (json/read-str :key-fn keyword)
+                 :Parameters)]
+    (reduce
+     (fn [acc {:keys [Name Value]}]
+       (assoc
+        acc
+        (-> (str/split Name #"/") last csk/->kebab-case-keyword
+            )
+        Value))
+     (sorted-map)
+     json)))
+
 (defn region-data [{:keys [RegionName RegionOptStatus]}]
-  {:code RegionName
-   :opt-in? (not= "ENABLED_BY_DEFAULT" RegionOptStatus)})
+  (merge
+   (region-params RegionName)
+   {:code RegionName
+    :opt-in? (not= "ENABLED_BY_DEFAULT" RegionOptStatus)}))
 
 (defn update-regions "Update regions.edn" [_opts]
   (let [regions (-> (p/exec
