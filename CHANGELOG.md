@@ -1,5 +1,7 @@
 ## Unreleased
 
+## v3.1.0 (2025-04-24)
+
 - Add a `regions` fn that returns a map of AWS regions and information
   such as the name, domain, location, and partition of each region.
 - Add an `elb-data` fn that returns a map of IAM principals for ELB
