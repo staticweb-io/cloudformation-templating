@@ -2,7 +2,7 @@
 
 [![Clojars Project](https://img.shields.io/clojars/v/io.staticweb/cloudformation-templating.svg)](https://clojars.org/io.staticweb/cloudformation-templating)
 [![CljDoc Badge](https://cljdoc.org/badge/io.staticweb/cloudformation-templating)](https://cljdoc.org/d/io.staticweb/cloudformation-templating)
-
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/staticweb-io/cloudformation-templating)
 
 A library for creating CloudFormation templates.
 
